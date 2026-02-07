@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Be My Valentine ❤️</title>
+
+  <!-- =====================
+       STYLES (RED THEME)
+       ===================== -->
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: "Segoe UI", sans-serif;
+    }
+
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #8b0000, #ff1a1a);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      overflow: hidden;
+    }
+
+    /* MAIN CARD */
+    .card {
+      width: 360px;
+      padding: 30px;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 30px rgba(0,0,0,0.3);
+      animation: fadeIn 1s ease;
+    }
+
+    h1 {
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 1.05em;
+    }
+
+    /* PHOTO PLACEHOLDER */
+    .photo {
+      width: 150px;
+      height: 150px;
+      margin: 20px auto;
+      border-radius: 50%;
+      border: 4px solid white;
+      background: url("7665e7f3-a299-4b4f-9605-a20b52c6dc6f.jpg") center / cover no-repeat;
+    }
+
+    /* BUTTON AREA */
+    .buttons {
+      position: relative;
+      height: 100px;
+      margin-top: 20px;
+    }
+
+    button {
+      padding: 12px 25px;
+      font-size: 1em;
+      border-radius: 30px;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    /* YES BUTTON */
+    #yesBtn {
+      background: #ff4d6d;
+      color: white;
+    }
+
+    #yesBtn:hover {
+      background: #ff1a40;
+    }
+
+    /* NO BUTTON (MOVES) */
+    #noBtn {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      background: white;
+      color: #ff1a40;
+    }
+
+    /* SUCCESS CARD (HIDDEN INITIALLY) */
+    .success {
+      display: none;
+    }
+
+    /* VOICE BUTTON */
+    #playVoiceBtn {
+      margin-top: 15px;
+      padding: 12px 25px;
+      border-radius: 30px;
+      background: #ff4d6d;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    #playVoiceBtn:hover {
+      background: #ff1a40;
+    }
+
+    /* HEART ANIMATION */
+    .heart {
+      position: fixed;
+      bottom: -50px;
+      font-size: 24px;
+      animation: floatUp 4s linear forwards;
+    }
+
+    @keyframes floatUp {
+      to {
+        transform: translateY(-110vh);
+        opacity: 0;
+      }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- =====================
+       MAIN QUESTION CARD
+       ===================== -->
+  <div class="card" id="mainCard">
+    <h1>Hi Love ❤️</h1>
+    <p>I’m planning to ask you this formally, therefore i made this.</p>
+
+    <!-- INSERT HER PHOTO -->
+    <div class="photo"></div>
+
+    <p>Will you be my Valentine?</p>
+
+    <div class="buttons">
+      <button id="yesBtn">Yes 💖</button>
+      <button id="noBtn">No 🙈</button>
+    </div>
+  </div>
+
+  <!-- =====================
+       SUCCESS CARD
+       ===================== -->
+  <div class="card success" id="successCard">
+    <h1>I LOVE YOU ALWAYS MWA!</h1>
+    <p>See you on our valentine's date love hehe, and I wanted you to hear this.</p>
+
+    <button id="playVoiceBtn">▶ Play My Voice 💌</button>
+
+    <!-- VOICE MESSAGE -->
+    <audio id="voiceMessage">
+      <source src="MESSAGE - MP3.mp3" type="audio/mpeg">
+    </audio>
+  </div>
+
+  <!-- =====================
+       JAVASCRIPT
+       ===================== -->
+  <script>
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+    const mainCard = document.getElementById("mainCard");
+    const successCard = document.getElementById("successCard");
+    const playVoiceBtn = document.getElementById("playVoiceBtn");
+    const voiceMessage = document.getElementById("voiceMessage");
+
+    /* MOVE THE NO BUTTON */
+    noBtn.addEventListener("mouseover", () => {
+      const x = Math.random() * 260 - 130;
+      const y = Math.random() * 80 - 40;
+      noBtn.style.transform = `translate(${x}px, ${y}px)`;
+    });
+
+    /* YES BUTTON CLICK */
+    yesBtn.addEventListener("click", () => {
+      mainCard.style.display = "none";
+      successCard.style.display = "block";
+      createHearts();
+    });
+
+    /* PLAY VOICE MESSAGE */
+    playVoiceBtn.addEventListener("click", () => {
+      voiceMessage.play();
+    });
+
+    /* HEART EFFECT */
+    function createHearts() {
+      for (let i = 0; i < 30; i++) {
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.innerHTML = "❤️";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration = (Math.random() * 2 + 3) + "s";
+        document.body.appendChild(heart);
+
+        setTimeout(() => heart.remove(), 5000);
+      }
+    }
+  </script>
+
+</body>
+</html>
